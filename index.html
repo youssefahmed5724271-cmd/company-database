@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Database Company</title>
+        <link rel="stylesheet" href="../static/style.css">
+        <link rel="icon" type="image/x-icon" href="https://img.atom.com/story_images/visual_images/logo-image-18348-database.company.jpg?class=show%22-width=%22100px%22">
+    </head>
+    <body>
+        <div class="pace-bar"></div>
+        <div class="box">
+            <img src="https://img.atom.com/story_images/visual_images/logo-image-18348-database.company.jpg?class=show%22-width=%22100px%22" width="120px" height="120px">
+            <form action="/add" method="POST">
+                <h1>Company Database</h1>
+                <input name="Name" type="text" placeholder="Enter your Name" required><br>
+                <br>
+                <input name="Salary" type="text" placeholder="Enter Salary / Info" required><br>
+                <br>
+                <button>Submit</button>
+            </form>
+        </div>
+        <br> 
+         <table border="3px" width="80%">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                </tr>
+                {% for employee in employees %}
+                <tr id="{{employee[0]}}">
+                <form action="/update/{{employee[0]}}" method="POST">
+                    <td>{{employee[0]}}</td>
+                    <td>
+                        <span class="view_mode">{{employee[1]}}</span>
+                        <input name="Name" class="edit_mode" type="text" value="{{employee[1]}}" style="display:none;">
+                    </td>
+                    <td> 
+                        <span class="view_mode">{{employee[2]}}</span>
+                        <input name="Salary" class="edit_mode" type="text" value="{{employee[2]}}" style="display:none;">
+                    </td>
+                    <td>
+                        <button class="edit_mode" style="display:none;">Save</button>
+                        <button class="view_mode" type="button" onclick="edit({{employee[0]}})">Edit</button>
+                        <a href="/delete/{{employee[0]}}" onclick="return confirm('Are you sure that you want to Delete')">Delete</a>
+                    </td>
+                </form>
+                </tr>
+                {% endfor %}
+        </table>
+        <script src="../static/script.js"></script>
+    </body>
+</html>
